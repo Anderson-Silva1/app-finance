@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Transaction {
+  id            String                   @id @default(uuid())
+  name          String
+  type          TransactionType
+  amount        Decimal                  @db.Decimal(10, 2)
+  category      TransactionCategory
+  paymentMethod TransactionPaymentMethod
+  date          DateTime
+  createdAt     DateTime                 @default(now())
+  updatedAt     DateTime                 @updatedAt
+  userId     String   // FK para o usuário
+  usuario    User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+model User {
+  id         String    @id // ID do Clerk, sem @default(uuid())
+  nome       String
+  email      String    @unique
+  transacoes Transaction[]
+}
+
+enum TransactionType {
+  DEPOSIT // Depósito
+  EXPENSE // Despesa
+  INVESTMENT // Investimento
+}
+
+enum TransactionCategory {
+  HOUSING // Moradia
+  RENT // Aluguel
+  MORTGAGE // Hipoteca
+  WATER // Água
+  ELECTRICITY // Luz
+  INTERNET // Internet
+  GAS // Gás
+
+  TRANSPORTATION // Transporte
+  FUEL // Combustível
+  PUBLIC_TRANSPORT // Transporte Público
+  VEHICLE_MAINTENANCE // Manutenção Veicular
+
+  FOOD // Alimentação
+  GROCERIES // Mercado
+  RESTAURANTS // Restaurantes
+
+  ENTERTAINMENT // Entretenimento
+  STREAMING_SERVICES // Serviços de Streaming
+  MOVIES // Cinema/Filmes
+
+  HEALTH // Saúde
+  MEDICAL_EXPENSES // Despesas Médicas
+  PHARMACY // Farmácia
+  GYM // Academia
+  DENTIST // Dentista
+  MEDICAL_EXAMS // Exames Médicos
+  HEALTH_INSURANCE // Seguro de Saúde
+  TREATMENTS_THERAPIES // Tratamentos e Terapias
+
+  UTILITY // Utilidades
+  PHONE_BILL // Conta de Telefone
+
+  SALARY // Salário
+
+  EDUCATION // Educação
+  SCHOOL_FEES // Mensalidade Escolar
+  COURSES // Cursos
+
+  OTHER // Outros
+  INVESTMENTS // Investimentos
+  LEISURE // Lazer
+  CLOTHING // Vestuário
+
+  SUBSCRIPTIONS_SERVICES // Assinaturas e Serviços
+  TAXES_FEES // Impostos e Taxas
+  DONATIONS_CHARITY // Doações e Caridade
+  PERSONAL_CARE // Cuidados Pessoais
+
+  TECHNOLOGY_ELECTRONICS // Tecnologia e Eletrônicos
+
+  TRAVEL_TOURISM // Viagens e Turismo
+  MAINTENANCE_REPAIRS // Manutenção e Reparos
+  PETS // Animais de Estimação
+  DEBTS_LOANS // Dívidas e Empréstimos
+  TOOLS_EQUIPMENT // Ferramentas e Equipamentos
+}
+
+enum TransactionPaymentMethod {
+  CREDIT_CARD // Cartão de Crédito
+  DEBIT_CARD // Cartão de Débito
+  BANK_TRANSFER // Transferência Bancária
+  BANK_SLIP // Boleto Bancário
+  CASH // Dinheiro
+  PIX // Pix
+  PAYPAL // PayPal
+  CRYPTOCURRENCY // Criptomoeda
+  CHECK // Cheque
+  GOOGLE_PAY // Google Pay
+  APPLE_PAY // Apple Pay
+  GIFT_CARD // Vale-Presente
+  STORE_CREDIT // Crédito na Loja
+  OTHER // Outro
+}
+
