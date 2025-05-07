@@ -2,6 +2,7 @@ import Header from "@/components/header";
 import FinancialSummary from "./_components/financial-summary";
 import CreateTransaction from "./_components/create-transaction";
 import TimeSelect from "./_components/time-select";
+import RecentTransactions from "./_components/recent-transactions";
 
 export default function Home() {
   return (
@@ -13,6 +14,9 @@ export default function Home() {
           <CreateTransaction />
         </div>
         <FinancialSummary />
+        <div className="px-[4%] pt-6">
+          <RecentTransactions />
+        </div>
       </section>
     </>
   );
