@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 import { AppSidebar } from "@/components/sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const interFont = Inter({
@@ -28,7 +28,6 @@ export default function RootLayout({
         <body className={` ${interFont.className} antialiased`}>
           <AppSidebar />
           <main className="w-full">
-            <SidebarTrigger />
             <ThemeProvider
               attribute="class"
               defaultTheme="system"
