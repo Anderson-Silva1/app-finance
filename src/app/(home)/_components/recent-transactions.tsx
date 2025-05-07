@@ -10,7 +10,7 @@ import RecentTransactionsCard from "./recent-transactions-card";
 const RecentTransactions = () => {
   return (
     <>
-      <Card className="col-span-3">
+      <Card className="col-span-3 flex-2">
         <CardHeader>
           <CardTitle>Transações Recentes</CardTitle>
           <CardDescription>
