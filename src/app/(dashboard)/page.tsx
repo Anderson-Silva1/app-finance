@@ -15,7 +15,7 @@ export default function Home() {
           <CreateTransaction />
         </div>
         <FinancialSummary />
-        <div className="flex flex-col gap-4 px-[4%] pt-6 lg:flex-row lg:gap-8">
+        <div className="flex flex-col gap-4 px-[4%] pt-6 xl:flex-row xl:gap-8">
           <AccountOverview />
           <RecentTransactions />
         </div>
