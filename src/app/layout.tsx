@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
+import { AppSidebar } from "@/components/sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const interFont = Inter({
   variable: "--font-inter",
@@ -20,8 +23,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body className={` ${interFont.className}  antialiased`}>{children}</body>
-    </html>
+    <SidebarProvider>
+      <html lang="pt-BR">
+        <body className={` ${interFont.className} antialiased`}>
+          <AppSidebar />
+          <main className="w-full">
+            <SidebarTrigger />
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </main>
+        </body>
+      </html>
+    </SidebarProvider>
   );
 }
